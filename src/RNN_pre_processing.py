@@ -1,12 +1,18 @@
-def extract_characters(n_jump, size_input, shakespeare=True):
+def extract_characters(shakespeare="shakespeare", combine=True):
     file = open("data/shakespeare.txt", "r") if shakespeare else open("data/spenser.txt", "r")
 
-    if shakespeare:
+    if shakespeare == "shakespeare":
         poetry_list_by_line = shakespeare_extract_poetry_list(file)
     else:
         poetry_list_by_line = spencer_extract_poetry_list(file)
 
-    result = split_to_fixed_size_list(n_jump, poetry_list_by_line, size_input)
+    for i in range(len(poetry_list_by_line)):
+        poetry_list_by_line[i] = remove_leading_line_spaces(poetry_list_by_line[i])
+    # result = split_to_fixed_size_list(n_jump, poetry_list_by_line, size_input)
+
+    result = poetry_list_by_line
+    if combine:
+        result = "\n\n".join(poetry_list_by_line)
 
     return result
 
@@ -15,7 +21,6 @@ def split_to_fixed_size_list(n_jump, poetry_list_by_line, size_input):
     result = []
 
     for poem in poetry_list_by_line:
-        poem = remove_leading_line_spaces(poem)
 
         for i in range(int(len(poem) / n_jump)):
             curr_pos_start = i * n_jump
@@ -59,4 +64,4 @@ def spencer_extract_poetry_list(file):
     return poetry_list
 
 
-print(extract_characters(8, 40, False))
+print(extract_characters(False, False))

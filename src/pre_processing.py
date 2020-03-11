@@ -2,7 +2,7 @@ import nltk
 nltk.download('punkt')
 
 def preprocess(shakespeare=True):
-    file = open("data/shakespeare.txt", "r") if shakespeare else open("data/spenser.txt", "r")
+    file = open("../data/shakespeare.txt", "r") if shakespeare else open("../data/spenser.txt", "r")
 
     if shakespeare:
         poetry_list_by_line = shakespeare_extract_poetry_list(file)
