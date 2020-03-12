@@ -27,7 +27,7 @@ maxlen = 40
 step = 3
 epochs = 60
 batch_size = 128
-fixed_starting_sentence = None # "shall i compare thee to a summer's day?\n"
+fixed_starting_sentence =  "shall i compare thee to a summer's day?\n"
 
 # path = get_file(
 #     'nietzsche.txt',
