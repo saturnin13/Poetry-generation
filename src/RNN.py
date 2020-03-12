@@ -20,23 +20,23 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from keras.models import Sequential
 from keras.optimizers import RMSprop
-
-shakespeare = "shakespeare" # "spenser
-units = 128
-maxlen = 40
-step = 3
-epochs = 60
-batch_size = 128
-fixed_starting_sentence =  "shall i compare thee to a summer's day?\n"
-
-# path = get_file(
-#     'nietzsche.txt',
-#     origin='https://s3.amazonaws.com/text-datasets/nietzsche.txt')
-# with io.open(path, encoding='utf-8') as f:
-#     text = f.read().lower()
 from RNN_pre_processing import extract_characters
 
-text = extract_characters(shakespeare, True)
+author = "spenser" # "eminem" # "shakespeare" # "spenser"
+units = 200
+maxlen = 40
+step = 3
+epochs = 100
+batch_size = 128
+fixed_starting_sentence = None # "shall i compare thee to a summer's day?\n"
+
+
+if author == "eminem":
+    file = open("data/eminem.txt", "r")
+    text = file.read().lower()
+else:
+    text = extract_characters(author, True)
+
 print('Text length:', len(text))
 
 chars = sorted(list(set(text)))
@@ -124,7 +124,7 @@ def get_index_from_proba(preds, temp=1.0):
     return np.argmax(probas)
 
 
-model_save_path = f"model_save/RNN_weights_{shakespeare}_{units}_{maxlen}_{step}_{epochs}_{batch_size}.h5"
+model_save_path = f"model_save/RNN_weights_{author}_{units}_{maxlen}_{step}_{epochs}_{batch_size}.h5"
 
 if os.path.isfile(model_save_path):
     model.load_weights(model_save_path)
