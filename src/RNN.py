@@ -1,3 +1,5 @@
+# Code inspired by https://github.com/keras-team/keras/blob/master/examples/lstm_text_generation.py
+
 from __future__ import print_function
 
 import os
