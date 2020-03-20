@@ -1,13 +1,3 @@
-'''
-#Example script to generate text from Nietzsche's writings.
-At least 20 epochs are required before the generated text
-starts sounding coherent.
-It is recommended to run this script on GPU, as recurrent
-networks are quite computationally intensive.
-If you try this script on new data, make sure your corpus
-has at least ~100k characters. ~1M is better.
-'''
-
 from __future__ import print_function
 
 import os
@@ -22,13 +12,13 @@ from keras.models import Sequential
 from keras.optimizers import RMSprop
 from RNN_pre_processing import extract_characters
 
-author = "spenser" # "eminem" # "shakespeare" # "spenser"
+author = "shakespeare" # "eminem" # "shakespeare" # "spenser"
 units = 200
 maxlen = 40
 step = 3
 epochs = 100
 batch_size = 128
-fixed_starting_sentence = None # "shall i compare thee to a summer's day?\n"
+fixed_starting_sentence = "shall i compare thee to a summer's day?\n"
 
 
 if author == "eminem":
@@ -95,7 +85,7 @@ def on_epoch_end(epoch, _):
         print('----- Generating with seed: "' + sentence + '"')
         sys.stdout.write(generated)
 
-        for i in range(400):
+        for i in range(800):
             x_pred = np.zeros((1, maxlen, len(chars)))
             for t, char in enumerate(sentence):
                 x_pred[0, t, char_indices[char]] = 1.
